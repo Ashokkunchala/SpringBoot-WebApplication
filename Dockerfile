@@ -1,13 +1,16 @@
 # You can change this base image to anything else
 # But make sure to use the correct version of Java
-FROM adoptopenjdk/openjdk11:alpine-jre
+FROM ubuntu:latest
 
-# Simply the artifact path
-ARG artifact=target/spring-boot-web.jar
+WORKDIR /app
 
-WORKDIR /opt/app
+COPY . .
 
-COPY ${artifact} app.jar
+RUN apt update -y && apt upgrade -y && apt-get install openjdk-21-jdk -y && apt install maven -y
+
+RUN mvn clean package
+
+EXPOSE 8080
 
 # This should not be changed
-ENTRYPOINT ["java","-jar","app.jar"]
+CMD ["java","-jar","spring-boot-web.jar"]
