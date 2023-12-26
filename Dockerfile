@@ -13,4 +13,4 @@ RUN mvn clean package
 EXPOSE 8080
 
 # This should not be changed
-CMD ["java","-jar","spring-boot-web.jar"]
+CMD ["java","-jar","target/spring-boot-web.jar"]
